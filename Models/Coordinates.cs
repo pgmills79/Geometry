@@ -10,5 +10,7 @@ namespace Geometry.Models
         
         public int xCord { get; set; }
         public int yCord { get; set; }
+
+        public string results { get; set; }
     }
 }

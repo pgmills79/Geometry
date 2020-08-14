@@ -14,8 +14,9 @@ using Microsoft.Extensions.Logging;
 
 namespace Geometry.Controllers
 {
+    
+    [Route("api/[controller]")]
     [ApiController]
-    [Route("[controller]")]
     public class GeometryController : ControllerBase
     {
         private readonly IConfiguration _configuration;
@@ -32,19 +33,36 @@ namespace Geometry.Controllers
         }
 
         [HttpGet]
-        public Coordinates Get()
+        public string Get()
         {
 
-            string _userInput = "A10";
+            return "hello";
+        }
+
+        [HttpGet("{coords}/{input}")]
+        public Coordinates Get(string input)
+        {
+
+            string _userInput = input;
 
 
-            //First check if input is correct (still need to do...)
+            //Make sure correct input using an extension method I created in Extensions.cs
+            bool isValid = _userInput.isCorrectXYInput();
+
+            if (!isValid)
+            {
+                Coordinates _badInput = new Coordinates();
+                _badInput.results = "Invalid Input";
+                return _badInput;
+
+            }
 
             //return the coordinates cordinates...
-            Coordinates _cords = new Coordinates() 
+            Coordinates _cords = new Coordinates()
             {
-                    xCord = _services.GetXCordinates(_userInput), 
-                    yCord = _services.GetYCordinates(_userInput) 
+                xCord = _services.GetXCordinates(_userInput),
+                yCord = _services.GetYCordinates(_userInput),
+                results = "success"
             };
 
             return _cords;
