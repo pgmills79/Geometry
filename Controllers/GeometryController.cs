@@ -19,14 +19,9 @@ namespace Geometry.Controllers
     public class GeometryController : ControllerBase
     {
         private readonly IConfiguration _configuration;
-        private readonly IGeometryServices _services;
+        private readonly IGeometryServices _services;    
 
-        private static readonly string[] Summaries = new[]
-        {
-            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-        };
-
-        private readonly ILogger<GeometryController> _logger;
+    
 
         public GeometryController(IConfiguration iconfiguration, IGeometryServices services)
         {
@@ -34,25 +29,25 @@ namespace Geometry.Controllers
             _configuration = iconfiguration;
             _services = services;
 
-
-
-
         }
 
         [HttpGet]
-        public IEnumerable<Coordinates> Get()
+        public Coordinates Get()
         {
 
-            string _userInput = "E7";
+            string _userInput = "A10";
 
 
-            //First check if input is correct
+            //First check if input is correct (still need to do...)
 
-            //next get the x cordinates...
-            int _xCord = _services.GetXCordinates(_userInput);
-            int _yCord = _services.GetYCordinates(_userInput);
+            //return the coordinates cordinates...
+            Coordinates _cords = new Coordinates() 
+            {
+                    xCord = _services.GetXCordinates(_userInput), 
+                    yCord = _services.GetYCordinates(_userInput) 
+            };
 
-            return new Coordinates { xCord = _xCord, yCord}
+            return _cords;
         }
     }
 }
