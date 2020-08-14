@@ -41,5 +41,17 @@ namespace Geometry
             //everything passed so we are good to go....
             return true;
         }
+
+        public static bool isEvenNumber(this string input)
+        {
+
+            int _numberChosen = Convert.ToInt16(input[1..]);
+
+            if (_numberChosen % 2 == 0)
+                return true;
+
+            //everything passed so we are good to go....
+            return false;
+        }
     }
 }

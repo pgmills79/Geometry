@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 namespace Geometry.Services
 {
     public interface IGeometryServices
-    {
+    {      
 
-        int GetXCordinates(string input);
-
-        int GetYCordinates(string input);
+        Dictionary<string, int> GetCoordsRightAngle(string input);
+        Dictionary<string, int> GetCoordsHorizontalA(string input);
+        Dictionary<string, int> GetCoordsVerticalB(string input);
     }
 }

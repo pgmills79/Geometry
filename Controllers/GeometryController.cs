@@ -45,14 +45,13 @@ namespace Geometry.Controllers
 
             string _userInput = input;
 
-
             //Make sure correct input using an extension method I created in Extensions.cs
             bool isValid = _userInput.isCorrectXYInput();
 
             if (!isValid)
             {
-                Coordinates _badInput = new Coordinates();
-                _badInput.results = "Invalid Input";
+                Coordinates _badInput = new Coordinates();            
+                _badInput.Results = "Invalid Input";
                 return _badInput;
 
             }
@@ -60,9 +59,10 @@ namespace Geometry.Controllers
             //return the coordinates cordinates...
             Coordinates _cords = new Coordinates()
             {
-                xCord = _services.GetXCordinates(_userInput),
-                yCord = _services.GetYCordinates(_userInput),
-                results = "success"
+                RightAngle = _services.GetCoordsRightAngle(input),
+                HorizontalPointA = _services.GetCoordsHorizontalA(input),
+                VerticalPointB = _services.GetCoordsVerticalB(input),                           
+                Results = "success"
             };
 
             return _cords;

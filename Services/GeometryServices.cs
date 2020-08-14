@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Geometry.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -9,19 +10,16 @@ namespace Geometry.Services
     {
 
 
-        public int GetXCordinates(string input) 
+        private int GetXCordinates(string input) 
         {
-
-            int _numberChosen = Convert.ToInt16(input.Substring(1, input.Length - 1));
+        
             int _xCord = 0;
-
             //if this is divisible by 2 then its hypotenus on the bottom
-            if (_numberChosen % 2 == 0)
+            if (input.isEvenNumber())
             {
-                _xCord = (_numberChosen / 2) * 10;  //10 pixels over to get to the point
+                _xCord = (getNumberChosen(input) / 2) * 10;  //10 pixels over to get to the point
                 return _xCord;
             }
-
 
             //since we know this is odd number then we can use the odd number mappings for 
             //x cordinates (if this was an even number it would have already exited this method)
@@ -33,12 +31,12 @@ namespace Geometry.Services
             _xMapping.Add(9, 40);
             _xMapping.Add(11, 50);
 
-            return _xMapping[_numberChosen];
+            return _xMapping[getNumberChosen(input)];
 
            
         }
 
-        public int GetYCordinates(string input)
+        private int GetYCordinates(string input)
         {
 
             Dictionary<string, int> _yMapping = new Dictionary<string, int>();
@@ -48,17 +46,13 @@ namespace Geometry.Services
             _yMapping.Add("D", 30);
             _yMapping.Add("E", 20);
             _yMapping.Add("F", 10);
-
-            int _numberChosen = Convert.ToInt16(input.Substring(1, input.Length - 1));
-            string _letterChosen = input.Substring(0, 1);
             
             int _yCord = 0;
 
             //if this is divisible by 2 then its hypotenus on the bottom
-            if (_numberChosen % 2 == 0)
+            if (input.isEvenNumber())
             {
-                _yCord = (Convert.ToInt16(_yMapping[_letterChosen]));
-
+                _yCord = (Convert.ToInt16(_yMapping[getLetterChosen(input)]));
                 return _yCord;
             }
 
@@ -72,8 +66,79 @@ namespace Geometry.Services
             _yMapping.Add("E", 10);
             _yMapping.Add("F", 0);
 
-            return _yMapping[_letterChosen];
+            return _yMapping[getLetterChosen(input)];
 
+        }
+
+        public Dictionary<string, int> GetCoordsRightAngle(string input) 
+        {
+            Dictionary<string, int> _rightAngle = new Dictionary<string, int>();
+
+            //right angle x and ys
+            int _xCords = GetXCordinates(input);
+            int _yCords = GetYCordinates(input);
+
+            _rightAngle.Add("x", GetXCordinates(input));
+            _rightAngle.Add("y", GetYCordinates(input));
+
+            return _rightAngle;
+
+        }
+
+        public Dictionary<string, int> GetCoordsHorizontalA(string input) 
+        {
+          
+            Dictionary<string, int> _HorizontalA = new Dictionary<string, int>();
+
+            //GET X cordinates for the horizontal plane
+            if (input.isEvenNumber())
+            {
+                _HorizontalA.Add("x", (GetCoordsRightAngle(input)["x"]) - 10);
+            }
+            else
+            {
+                _HorizontalA.Add("x", GetCoordsRightAngle(input)["x"] + 10);  //we add 10 
+            }
+
+            //y mapping would be the same as the right angle
+            _HorizontalA.Add("y", GetCoordsRightAngle(input)["y"]);
+
+
+            return _HorizontalA;            
+        
+        
+        }
+        public Dictionary<string, int> GetCoordsVerticalB(string input) 
+        {
+
+            Dictionary<string, int> _VerticalB = new Dictionary<string, int>();
+
+            //GET x cordinates for the horizontal plane
+            if (input.isEvenNumber())
+            {
+                _VerticalB.Add("x", (GetCoordsRightAngle(input)["x"]));
+                //y mapping would be the same as the right angle
+                _VerticalB.Add("y", GetCoordsRightAngle(input)["y"] - 10);
+            }
+            else
+            {
+                _VerticalB.Add("x", GetCoordsRightAngle(input)["x"]);
+                _VerticalB.Add("Y", GetCoordsRightAngle(input)["y"] + 10);
+            }            
+
+
+            return _VerticalB;
+
+        }
+
+        private int getNumberChosen(string input)
+        {
+            return Convert.ToInt16(input.Substring(1, input.Length - 1));
+        }
+
+        private string getLetterChosen(string input)
+        {
+            return input.Substring(0, 1);
         }
     }
 }
