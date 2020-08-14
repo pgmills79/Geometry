@@ -5,9 +5,10 @@ using System.Threading.Tasks;
 
 namespace Geometry.Models
 {
-    public class Animals
+    public class Coordinates
     {
         
-        public string AnimalName { get; set; }
+        public int xCord { get; set; }
+        public int yCord { get; set; }
     }
 }

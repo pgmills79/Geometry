@@ -23,7 +23,8 @@ namespace Geometry.Services
             }
 
 
-            //this is the reverse so we need to do some sort of mapping to get the x cordinates
+            //since we know this is odd number then we can use the odd number mappings for 
+            //x cordinates (if this was an even number it would have already exited this method)
             Dictionary<int, int> _xMapping = new Dictionary<int, int>();
             _xMapping.Add(1, 0);
             _xMapping.Add(3, 10);
@@ -61,10 +62,18 @@ namespace Geometry.Services
                 return _yCord;
             }
 
-            //this is the reverse right triangle then....
-            
+            //since we knw this is odd numbers then we can use the odd number mappings for 
+            //y cordinates (if this was an even number it would have already exited this method)
+            _yMapping = new Dictionary<string, int>();
+            _yMapping.Add("A", 50);
+            _yMapping.Add("B", 40);
+            _yMapping.Add("C", 30);
+            _yMapping.Add("D", 20);
+            _yMapping.Add("E", 10);
+            _yMapping.Add("F", 0);
 
-            return 0;
+            return _yMapping[_letterChosen];
+
         }
     }
 }

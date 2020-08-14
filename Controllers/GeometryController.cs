@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Threading.Tasks;
 using CsvHelper;
 using Geometry.Models;
@@ -15,7 +16,7 @@ namespace Geometry.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class WeatherForecastController : ControllerBase
+    public class GeometryController : ControllerBase
     {
         private readonly IConfiguration _configuration;
         private readonly IGeometryServices _services;
@@ -25,9 +26,9 @@ namespace Geometry.Controllers
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
         };
 
-        private readonly ILogger<WeatherForecastController> _logger;
+        private readonly ILogger<GeometryController> _logger;
 
-        public WeatherForecastController(IConfiguration iconfiguration, IGeometryServices services)
+        public GeometryController(IConfiguration iconfiguration, IGeometryServices services)
         {
 
             _configuration = iconfiguration;
@@ -39,28 +40,19 @@ namespace Geometry.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<WeatherForecast> Get()
+        public IEnumerable<Coordinates> Get()
         {
 
-            string _userInput = "E11";
+            string _userInput = "E7";
+
 
             //First check if input is correct
-
-
-            //IN GITHUB!!
 
             //next get the x cordinates...
             int _xCord = _services.GetXCordinates(_userInput);
             int _yCord = _services.GetYCordinates(_userInput);
 
-            var rng = new Random();
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-            {
-                Date = DateTime.Now.AddDays(index),
-                TemperatureC = rng.Next(-20, 55),
-                Summary = Summaries[rng.Next(Summaries.Length)]
-            })
-            .ToArray();
+            return new Coordinates { xCord = _xCord, yCord}
         }
     }
 }
