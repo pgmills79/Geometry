@@ -177,11 +177,15 @@ namespace Geometry.Services
 
         }
 
-        string GetTriangleSector(string input)
+        public string GetTriangleSector(string input)
         {
+            //the GetAllVertexes gets all the vertexes from suer input.  
+            //I have key/values for each and a list of the x/y coord for all 3
             List<string> _firstVertex = GetAllVertexes(input)["V1"];
             List<string> _secondVertex = GetAllVertexes(input)["V2"];
             List<string> _thirdVertex = GetAllVertexes(input)["V3"];
+
+            //need to store column and row info
             int _column = 0;
             string _row = string.Empty;
 
@@ -191,13 +195,14 @@ namespace Geometry.Services
             bool _isBottomTriangle = Convert.ToInt16(_secondVertex[1]) > Convert.ToInt16(_firstVertex[1]);
 
             if (_isBottomTriangle)  //so we would know that the number is odd
-            {
+            {  //odd number columns
 
 
                 _column = _sector.XCoords
                 .Where(
                         a => a.Value.Equals(Convert.ToInt16(_firstVertex[0]))
                         &
+                        //since we know this is an odd number it is NOT divisble by 2
                         a.Key % 2 != 0
                       )
                 .Select(a => a.Key)
@@ -207,18 +212,20 @@ namespace Geometry.Services
                 .Where(
                         a => a.Value.Equals(Convert.ToInt16(_firstVertex[1]))
                         &
-                        Convert.ToInt16(a.Key.Substring(1, 1)) % 2 != 0
+                        //since we know this is an odd number it is NOT divisble by 2
+                        Convert.ToInt16(a.Key.Substring(1, 1)) % 2 != 0  
                       )
                 .Select(a => a.Key.Substring(0, 1))
                 .FirstOrDefault<string>();
 
             }
-            else
+            else  //even number columns
             {
                 _column = _sector.XCoords
                  .Where(
                          a => a.Value.Equals(Convert.ToInt16(_firstVertex[0]))
                          &
+                         //since we know this is an even number it IS divisble by 2
                          a.Key % 2 == 0
                        )
                  .Select(a => a.Key)
@@ -228,12 +235,14 @@ namespace Geometry.Services
                    .Where(
                            a => a.Value.Equals(Convert.ToInt16(_firstVertex[1]))
                            &
+                           //since we know this is an even number it IS divisble by 2
                            Convert.ToInt16(a.Key.Substring(1, 1)) % 2 == 0
                          )
                    .Select(a => a.Key.Substring(0, 1))
                    .FirstOrDefault<string>();
 
             }
+
 
             return "You chose: " + _row + _column.ToString();
 

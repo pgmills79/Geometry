@@ -44,6 +44,7 @@ namespace Geometry.Controllers
             //Went ahead and put all the logic for the setor gathering in this service...
             _sector.Results = _services.GetTriangleSector(input);
 
+            //return the sector class with only the results property visible
             return _sector;
         }
 
