@@ -15,17 +15,17 @@ using Microsoft.Extensions.Logging;
 
 namespace Geometry.Controllers
 {
-    
+
     [Route("api/[controller]")]
     [ApiController]
-    public class GeometryController : ControllerBase
+    public class CoordsController : ControllerBase
     {
         private readonly IConfiguration _configuration;
-        private readonly IGeometryServices _services;    
+        private readonly IGeometryServices _services;
 
-    
 
-        public GeometryController(IConfiguration iconfiguration, IGeometryServices services)
+
+        public CoordsController(IConfiguration iconfiguration, IGeometryServices services)
         {
 
             _configuration = iconfiguration;
@@ -34,10 +34,10 @@ namespace Geometry.Controllers
         }
 
         [HttpGet]
-        public string Get()
+        public string Get()     
         {
 
-            return "hello";
+                return "hello";
         }
 
         [HttpGet("{coords}/{input}")]
@@ -51,7 +51,7 @@ namespace Geometry.Controllers
 
             if (!isValid)
             {
-                Coordinates _badInput = new Coordinates();            
+                Coordinates _badInput = new Coordinates();
                 _badInput.Results = "Invalid Input";
                 return _badInput;
 
@@ -63,11 +63,12 @@ namespace Geometry.Controllers
             {
                 RightAngle = _services.GetCoordsRightAngle(input),
                 HorizontalPointA = _services.GetCoordsHorizontalA(input),
-                VerticalPointB = _services.GetCoordsVerticalB(input),                           
+                VerticalPointB = _services.GetCoordsVerticalB(input),
                 Results = "success"
             };
 
             return _cords;
         }
+
     }
 }

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Geometry.Services
@@ -140,5 +141,42 @@ namespace Geometry.Services
         {
             return input.Substring(0, 1);
         }
+
+        public Dictionary<string, List<string>> GetAllVertexes(string input)
+        {
+
+            var pattern = @"\((.*?)\)";
+            var query = input;
+            List<Match> _matches = Regex.Matches(query, pattern).ToList();
+
+            List<string> _v1 = _matches[0].Value.Replace("(", string.Empty).Replace(")", string.Empty).Split(',').ToList();
+            List<string> _v2 = _matches[1].Value.Replace("(", string.Empty).Replace(")", string.Empty).Split(',').ToList();
+            List<string> _v3 = _matches[2].Value.Replace("(", string.Empty).Replace(")", string.Empty).Split(',').ToList();
+
+            Dictionary<string, List<string>> _vertexes = new Dictionary<string, List<string>>();
+
+            _vertexes.Add(
+
+                "V1",
+                _v1
+            );
+
+            _vertexes.Add(
+
+                "V2",
+                _v2
+            );
+
+            _vertexes.Add(
+
+               "V3",
+               _v3
+           );
+
+            return _vertexes;
+
+        }
+
+
     }
 }

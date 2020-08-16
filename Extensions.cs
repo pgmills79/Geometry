@@ -53,5 +53,20 @@ namespace Geometry
             //everything passed so we are good to go....
             return false;
         }
+
+        public static bool isBottomTriangle(this string input)
+        {            
+
+            string _vector1 = input.Split('(', ')')[1];
+            string _vector2 = input.Split('(', ')')[3];
+
+            if (Convert.ToInt16(_vector2.Split(',')[1]) > Convert.ToInt16(_vector1.Split(',')[1]))
+                return true;
+
+
+            //this is NOT a bottom trianlge since it didnt bounce out above
+            return false;
+        
+        }
     }
 }

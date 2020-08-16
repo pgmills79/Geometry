@@ -11,12 +11,13 @@
   "profiles": {
     "IIS Express": {
       "commandName": "IISExpress",
-      "launchUrl": "api/Geometry/"
+      "launchBrowser": true,
+      "launchUrl": "api/Coords/"
     },
-    "Geometry": {
+    "Coords": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "api/Geometry/",
+      "launchUrl": "api/Coords/",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },

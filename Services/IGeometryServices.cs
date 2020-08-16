@@ -11,5 +11,8 @@ namespace Geometry.Services
         Dictionary<string, int> GetCoordsRightAngle(string input);
         Dictionary<string, int> GetCoordsHorizontalA(string input);
         Dictionary<string, int> GetCoordsVerticalB(string input);
+
+        Dictionary<string, List<string>> GetAllVertexes(string input);
+
     }
 }
