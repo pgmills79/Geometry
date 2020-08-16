@@ -38,68 +38,11 @@ namespace Geometry.Controllers
         [HttpGet("{input}")]
         public Sector Get(string input)
         {
-            //first see if bottom triangle
-           
-
-
-            List<string> _firstVertex = _services.GetAllVertexes(input)["V1"];
-            List<string> _secondVertex = _services.GetAllVertexes(input)["V2"];
-            List<string> _thirdVertex = _services.GetAllVertexes(input)["V3"];
-            int _column = 0;
-            string _row = string.Empty;
-
+            //instantiate new Sector class which "houses" our grid relationships
             Sector _sector = new Sector();
 
-            //is it bottom triangle
-            bool _isBottomTriangle = Convert.ToInt16(_secondVertex[1]) > Convert.ToInt16(_firstVertex[1]);
-
-            if (_isBottomTriangle)  //so we would know that the number is odd
-            {
-                
-
-                    _column = _sector.XCoords
-                    .Where(
-                            a => a.Value.Equals(Convert.ToInt16(_firstVertex[0]))
-                            &
-                            a.Key % 2 != 0
-                          )
-                    .Select(a => a.Key)
-                    .FirstOrDefault<int>();
-
-                    _row = _sector.YCoords
-                    .Where(
-                            a => a.Value.Equals(Convert.ToInt16(_firstVertex[1]))
-                            &
-                            Convert.ToInt16(a.Key.Substring(1, 1)) % 2 != 0
-                          )
-                    .Select(a => a.Key.Substring(0, 1))
-                    .FirstOrDefault<string>();
-
-            }
-            else
-            {
-                 _column = _sector.XCoords
-                  .Where(
-                          a => a.Value.Equals(Convert.ToInt16(_firstVertex[0]))
-                          &
-                          a.Key % 2 == 0
-                        )
-                  .Select(a => a.Key)
-                  .FirstOrDefault<int>();
-
-                _row = _sector.YCoords
-                   .Where(
-                           a => a.Value.Equals(Convert.ToInt16(_firstVertex[1]))
-                           &
-                           Convert.ToInt16(a.Key.Substring(1, 1)) % 2 == 0
-                         )
-                   .Select(a => a.Key.Substring(0, 1))
-                   .FirstOrDefault<string>();
-
-            }
-
-
-            _sector.Results = "You chose: " + _row + _column.ToString();
+            //Went ahead and put all the logic for the setor gathering in this service...
+            _sector.Results = _services.GetTriangleSector(input);
 
             return _sector;
         }

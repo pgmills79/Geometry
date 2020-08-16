@@ -177,6 +177,68 @@ namespace Geometry.Services
 
         }
 
+        string GetTriangleSector(string input)
+        {
+            List<string> _firstVertex = GetAllVertexes(input)["V1"];
+            List<string> _secondVertex = GetAllVertexes(input)["V2"];
+            List<string> _thirdVertex = GetAllVertexes(input)["V3"];
+            int _column = 0;
+            string _row = string.Empty;
+
+            Sector _sector = new Sector();
+
+            //is it bottom triangle
+            bool _isBottomTriangle = Convert.ToInt16(_secondVertex[1]) > Convert.ToInt16(_firstVertex[1]);
+
+            if (_isBottomTriangle)  //so we would know that the number is odd
+            {
+
+
+                _column = _sector.XCoords
+                .Where(
+                        a => a.Value.Equals(Convert.ToInt16(_firstVertex[0]))
+                        &
+                        a.Key % 2 != 0
+                      )
+                .Select(a => a.Key)
+                .FirstOrDefault<int>();
+
+                _row = _sector.YCoords
+                .Where(
+                        a => a.Value.Equals(Convert.ToInt16(_firstVertex[1]))
+                        &
+                        Convert.ToInt16(a.Key.Substring(1, 1)) % 2 != 0
+                      )
+                .Select(a => a.Key.Substring(0, 1))
+                .FirstOrDefault<string>();
+
+            }
+            else
+            {
+                _column = _sector.XCoords
+                 .Where(
+                         a => a.Value.Equals(Convert.ToInt16(_firstVertex[0]))
+                         &
+                         a.Key % 2 == 0
+                       )
+                 .Select(a => a.Key)
+                 .FirstOrDefault<int>();
+
+                _row = _sector.YCoords
+                   .Where(
+                           a => a.Value.Equals(Convert.ToInt16(_firstVertex[1]))
+                           &
+                           Convert.ToInt16(a.Key.Substring(1, 1)) % 2 == 0
+                         )
+                   .Select(a => a.Key.Substring(0, 1))
+                   .FirstOrDefault<string>();
+
+            }
+
+            return "You chose: " + _row + _column.ToString();
+
+        }
+
 
     }
 }

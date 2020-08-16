@@ -12,7 +12,7 @@ namespace Geometry.Services
         Dictionary<string, int> GetCoordsHorizontalA(string input);
         Dictionary<string, int> GetCoordsVerticalB(string input);
 
-        Dictionary<string, List<string>> GetAllVertexes(string input);
+        string GetTriangleSector(string input);
 
     }
 }
