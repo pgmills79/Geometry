@@ -149,9 +149,9 @@ namespace Geometry.Services
             var query = userInput;
             List<Match> _matches = Regex.Matches(query, pattern).ToList();
 
-            List<string> _v1 = _matches[0].Value.Replace("(", string.Empty).Replace(")", string.Empty).Split(',').ToList();
-            List<string> _v2 = _matches[1].Value.Replace("(", string.Empty).Replace(")", string.Empty).Split(',').ToList();
-            List<string> _v3 = _matches[2].Value.Replace("(", string.Empty).Replace(")", string.Empty).Split(',').ToList();
+            List<string> _v1 = RemoveUnwantedCharacters(_matches[0].Value).Split(',').ToList();
+            List<string> _v2 = RemoveUnwantedCharacters(_matches[1].Value).Split(',').ToList();
+            List<string> _v3 = RemoveUnwantedCharacters(_matches[2].Value).Split(',').ToList();
 
             Dictionary<string, List<string>> _vertexes = new Dictionary<string, List<string>>();
 
@@ -245,6 +245,20 @@ namespace Geometry.Services
 
 
             return "You chose: " + _row + _column.ToString();
+
+        }
+
+        private string RemoveUnwantedCharacters(string stringToUpdate)
+        {
+
+            string _newStringValue = stringToUpdate
+                                    .Replace("(", string.Empty)
+                                    .Replace("[", string.Empty)
+                                    .Replace(")", string.Empty)
+                                    .Replace("]", string.Empty);
+
+            return _newStringValue;
+
 
         }
 
