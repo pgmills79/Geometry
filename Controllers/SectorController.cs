@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Geometry.Models;
 using Geometry.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -38,6 +33,20 @@ namespace Geometry.Controllers
         [HttpGet("{input}")]
         public Sector Get(string input)
         {
+
+            string _userInput = input;
+
+            //Make sure correct input using an extension method I created in Extensions.cs
+            bool isValid = _userInput.isCorrectVertexInput();
+
+            if (!isValid)
+            {
+                Sector _badInput = new Sector();
+                _badInput.Results = "Invalid Input [example: (0,0)(0,10)(10,0)]";
+                return _badInput;
+
+            }
+
             //instantiate new Sector class which "houses" our grid relationships
             Sector _sector = new Sector();
 
@@ -48,22 +57,6 @@ namespace Geometry.Controllers
             return _sector;
         }
 
-        // POST api/<SectorController>
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
-
-        // PUT api/<SectorController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/<SectorController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
+       
     }
 }

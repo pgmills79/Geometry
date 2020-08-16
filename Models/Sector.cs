@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 
 namespace Geometry.Models
 {
@@ -10,7 +7,6 @@ namespace Geometry.Models
     {
 
         public string Results { get; set; }
-
 
         [JsonIgnore]
         public Dictionary<int, int> XCoords { get; set; }
