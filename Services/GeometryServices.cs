@@ -238,7 +238,7 @@ namespace Geometry.Services
                            //since we know this is an even number it IS divisble by 2
                            Convert.ToInt16(a.Key.Substring(1, 1)) % 2 == 0
                          )
-                   .Select(a => a.Key.Substring(0, 1))
+                   .Select(a => a.Key.Substring(0, 1))  //the row value should only be the first character
                    .FirstOrDefault<string>();
 
             }

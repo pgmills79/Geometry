@@ -40,7 +40,7 @@ namespace Geometry.Controllers
                 return "hello";
         }
 
-        [HttpGet("{coords}/{input}")]
+        [HttpGet("{input}")]
         public Coordinates Get(string input)
         {
 

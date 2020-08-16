@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Geometry
@@ -11,35 +12,16 @@ namespace Geometry
 
         public static bool isCorrectXYInput(this string input ) 
         {
-            //no empy or null values allowed...
-            if (string.IsNullOrEmpty(input))             
-                return false;         
 
-            //the length on this is incorrect, should be atleast 2 and no more than 3
-            if (input.Length < 2 || input.Length > 3)
-                return false;
+            string _pattern = @"^[A-F]([1-9]|10|11)$";
+            string _query = input;
+           
+            List<Match> _matches = Regex.Matches(_query, _pattern).ToList();
 
-            
-            int n;
+            //return our value of if user input is correct
+            return (_matches.Count() == 1);
 
-            //make sure first characeter is a letter
-            if (int.TryParse(input.Substring(0, 1), out n))
-                return false;
-
-            //make sure everything after first character is not a number
-            if (!int.TryParse(input.Substring(1, (input.Length - 1)), out n))
-                return false;
-
-            //cant go lower than 1 on the lower range
-            if (Convert.ToInt16(input.Substring(1, (input.Length - 1))) < 1)
-                return false;
-
-            //cant go higher than 12 on upper range
-            if (Convert.ToInt16(input.Substring(1, (input.Length - 1))) > 12)
-                return false;
-
-            //everything passed so we are good to go....
-            return true;
+         
         }
 
         public static bool isEvenNumber(this string input)
