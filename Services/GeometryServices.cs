@@ -8,7 +8,8 @@ namespace Geometry.Services
 {
     public class GeometryServices : IGeometryServices
     {
-
+        //constant to calculate the 10 pixels (+/-)
+        private const int PIXEL_SPACING = 10;
 
         private int GetXCordinates(string input) 
         {
@@ -17,7 +18,7 @@ namespace Geometry.Services
             //if this is divisible by 2 then its hypotenus on the bottom
             if (input.isEvenNumber())
             {
-                _xCord = (getNumberChosen(input) / 2) * 10;  //10 pixels over to get to the point
+                _xCord = (getNumberChosen(input) / 2) * PIXEL_SPACING;  //10 pixels over to get to the point
                 return _xCord;
             }
 
@@ -93,11 +94,11 @@ namespace Geometry.Services
             //GET X cordinates for the horizontal plane
             if (input.isEvenNumber())
             {
-                _HorizontalA.Add("x", (GetCoordsRightAngle(input)["x"]) - 10);
+                _HorizontalA.Add("x", (GetCoordsRightAngle(input)["x"]) - PIXEL_SPACING);
             }
             else
             {
-                _HorizontalA.Add("x", GetCoordsRightAngle(input)["x"] + 10);  //we add 10 
+                _HorizontalA.Add("x", GetCoordsRightAngle(input)["x"] + PIXEL_SPACING);  //we add 10 
             }
 
             //y mapping would be the same as the right angle
@@ -118,12 +119,12 @@ namespace Geometry.Services
             {
                 _VerticalB.Add("x", (GetCoordsRightAngle(input)["x"]));
                 //y mapping would be the same as the right angle
-                _VerticalB.Add("y", GetCoordsRightAngle(input)["y"] - 10);
+                _VerticalB.Add("y", GetCoordsRightAngle(input)["y"] - PIXEL_SPACING);
             }
             else
             {
                 _VerticalB.Add("x", GetCoordsRightAngle(input)["x"]);
-                _VerticalB.Add("Y", GetCoordsRightAngle(input)["y"] + 10);
+                _VerticalB.Add("Y", GetCoordsRightAngle(input)["y"] + PIXEL_SPACING);
             }            
 
 
