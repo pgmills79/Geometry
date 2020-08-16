@@ -8,11 +8,11 @@ namespace Geometry
     public static class Extensions
     {
 
-        public static bool isCorrectXYInput(this string input ) 
+        public static bool isValidXYInput(this string userXYInput ) 
         {
 
             string _pattern = @"^[A-F]([1-9]|10|11)$";
-            string _query = input;
+            string _query = userXYInput;
            
             List<Match> _matches = Regex.Matches(_query, _pattern).ToList();
 
@@ -22,11 +22,11 @@ namespace Geometry
          
         }
 
-        public static bool isCorrectVertexInput(this string input)
+        public static bool isValidVertexInput(this string userVertexInput)
         {
 
             string _pattern = @"^([[\(|\[]([0-5]?[0-9]|60)[,]([0-5]?[0-9]|60)[\)|\]]){3}$";
-            string _query = input;
+            string _query = userVertexInput;
 
             List<Match> _matches = Regex.Matches(_query, _pattern).ToList();
 
@@ -36,10 +36,10 @@ namespace Geometry
 
         }
 
-        public static bool isEvenNumber(this string input)
+        public static bool isEvenNumber(this string userInput)
         {
 
-            int _numberChosen = Convert.ToInt16(input[1..]);
+            int _numberChosen = Convert.ToInt16(userInput[1..]);
 
             if (_numberChosen % 2 == 0)
                 return true;

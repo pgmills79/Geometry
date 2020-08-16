@@ -11,14 +11,14 @@ namespace Geometry.Services
         //constant to calculate the 10 pixels (+/-)
         private const int PIXEL_SPACING = 10;
 
-        private int GetXCordinates(string input) 
+        private int GetXCordinates(string userInput) 
         {
         
             int _xCord = 0;
             //if this is divisible by 2 then its hypotenus on the bottom
-            if (input.isEvenNumber())
+            if (userInput.isEvenNumber())
             {
-                _xCord = (getNumberChosen(input) / 2) * PIXEL_SPACING;  //10 pixels over to get to the point
+                _xCord = (getNumberChosen(userInput) / 2) * PIXEL_SPACING;  //10 pixels over to get to the point
                 return _xCord;
             }
 
@@ -32,12 +32,12 @@ namespace Geometry.Services
             _xMapping.Add(9, 40);
             _xMapping.Add(11, 50);
 
-            return _xMapping[getNumberChosen(input)];
+            return _xMapping[getNumberChosen(userInput)];
 
            
         }
 
-        private int GetYCordinates(string input)
+        private int GetYCordinates(string userInput)
         {
 
             Dictionary<string, int> _yMapping = new Dictionary<string, int>();
@@ -51,9 +51,9 @@ namespace Geometry.Services
             int _yCord = 0;
 
             //if this is divisible by 2 then its hypotenus on the bottom
-            if (input.isEvenNumber())
+            if (userInput.isEvenNumber())
             {
-                _yCord = (Convert.ToInt16(_yMapping[getLetterChosen(input)]));
+                _yCord = (Convert.ToInt16(_yMapping[getLetterChosen(userInput)]));
                 return _yCord;
             }
 
@@ -67,64 +67,64 @@ namespace Geometry.Services
             _yMapping.Add("E", 10);
             _yMapping.Add("F", 0);
 
-            return _yMapping[getLetterChosen(input)];
+            return _yMapping[getLetterChosen(userInput)];
 
         }
 
-        public Dictionary<string, int> GetCoordsRightAngle(string input) 
+        public Dictionary<string, int> GetCoordsRightAngle(string userInput) 
         {
             Dictionary<string, int> _rightAngle = new Dictionary<string, int>();
 
             //right angle x and ys
-            int _xCords = GetXCordinates(input);
-            int _yCords = GetYCordinates(input);
+            int _xCords = GetXCordinates(userInput);
+            int _yCords = GetYCordinates(userInput);
 
-            _rightAngle.Add("x", GetXCordinates(input));
-            _rightAngle.Add("y", GetYCordinates(input));
+            _rightAngle.Add("x", GetXCordinates(userInput));
+            _rightAngle.Add("y", GetYCordinates(userInput));
 
             return _rightAngle;
 
         }
 
-        public Dictionary<string, int> GetCoordsHorizontalA(string input) 
+        public Dictionary<string, int> GetCoordsHorizontalA(string userInput) 
         {
           
             Dictionary<string, int> _HorizontalA = new Dictionary<string, int>();
 
             //GET X cordinates for the horizontal plane
-            if (input.isEvenNumber())
+            if (userInput.isEvenNumber())
             {
-                _HorizontalA.Add("x", (GetCoordsRightAngle(input)["x"]) - PIXEL_SPACING);
+                _HorizontalA.Add("x", (GetCoordsRightAngle(userInput)["x"]) - PIXEL_SPACING);
             }
             else
             {
-                _HorizontalA.Add("x", GetCoordsRightAngle(input)["x"] + PIXEL_SPACING);  //we add 10 
+                _HorizontalA.Add("x", GetCoordsRightAngle(userInput)["x"] + PIXEL_SPACING);  
             }
 
             //y mapping would be the same as the right angle
-            _HorizontalA.Add("y", GetCoordsRightAngle(input)["y"]);
+            _HorizontalA.Add("y", GetCoordsRightAngle(userInput)["y"]);
 
 
             return _HorizontalA;            
         
         
         }
-        public Dictionary<string, int> GetCoordsVerticalB(string input) 
+        public Dictionary<string, int> GetCoordsVerticalB(string userInput) 
         {
 
             Dictionary<string, int> _VerticalB = new Dictionary<string, int>();
 
             //GET x cordinates for the horizontal plane
-            if (input.isEvenNumber())
+            if (userInput.isEvenNumber())
             {
-                _VerticalB.Add("x", (GetCoordsRightAngle(input)["x"]));
+                _VerticalB.Add("x", (GetCoordsRightAngle(userInput)["x"]));
                 //y mapping would be the same as the right angle
-                _VerticalB.Add("y", GetCoordsRightAngle(input)["y"] - PIXEL_SPACING);
+                _VerticalB.Add("y", GetCoordsRightAngle(userInput)["y"] - PIXEL_SPACING);
             }
             else
             {
-                _VerticalB.Add("x", GetCoordsRightAngle(input)["x"]);
-                _VerticalB.Add("Y", GetCoordsRightAngle(input)["y"] + PIXEL_SPACING);
+                _VerticalB.Add("x", GetCoordsRightAngle(userInput)["x"]);
+                _VerticalB.Add("Y", GetCoordsRightAngle(userInput)["y"] + PIXEL_SPACING);
             }            
 
 
@@ -132,21 +132,21 @@ namespace Geometry.Services
 
         }
 
-        private int getNumberChosen(string input)
+        private int getNumberChosen(string userInput)
         {
-            return Convert.ToInt16(input.Substring(1, input.Length - 1));
+            return Convert.ToInt16(userInput.Substring(1, userInput.Length - 1));
         }
 
-        private string getLetterChosen(string input)
+        private string getLetterChosen(string userInput)
         {
-            return input.Substring(0, 1);
+            return userInput.Substring(0, 1);
         }
 
-        public Dictionary<string, List<string>> GetAllVertexes(string input)
+        public Dictionary<string, List<string>> GetAllVertexes(string userInput)
         {
 
             var pattern = @"\((.*?)\)";
-            var query = input;
+            var query = userInput;
             List<Match> _matches = Regex.Matches(query, pattern).ToList();
 
             List<string> _v1 = _matches[0].Value.Replace("(", string.Empty).Replace(")", string.Empty).Split(',').ToList();
@@ -177,13 +177,13 @@ namespace Geometry.Services
 
         }
 
-        public string GetTriangleSector(string input)
+        public string GetTriangleSector(string userInput)
         {
             //the GetAllVertexes gets all the vertexes from suer input.  
             //I have key/values for each and a list of the x/y coord for all 3
-            List<string> _firstVertex = GetAllVertexes(input)["V1"];
-            List<string> _secondVertex = GetAllVertexes(input)["V2"];
-            List<string> _thirdVertex = GetAllVertexes(input)["V3"];
+            List<string> _firstVertex = GetAllVertexes(userInput)["V1"];
+            List<string> _secondVertex = GetAllVertexes(userInput)["V2"];
+            List<string> _thirdVertex = GetAllVertexes(userInput)["V3"];
 
             //need to store column and row info
             int _column = 0;

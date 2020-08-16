@@ -37,7 +37,7 @@ namespace Geometry.Controllers
             string _userInput = input;
 
             //Make sure correct input using an extension method I created in Extensions.cs
-            bool isValid = _userInput.isCorrectVertexInput();
+            bool isValid = _userInput.isValidVertexInput();
 
             if (!isValid)
             {
