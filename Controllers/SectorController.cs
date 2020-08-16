@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Net;
 using Geometry.Models;
 using Geometry.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -42,7 +43,7 @@ namespace Geometry.Controllers
             if (!isValid)
             {
                 Sector _badInput = new Sector();
-                _badInput.Results = "Invalid Input [example: (0,0)(0,10)(10,0)]";
+                _badInput.Results = HttpStatusCode.BadRequest.ToString();
                 return _badInput;
 
             }

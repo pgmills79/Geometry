@@ -2,7 +2,7 @@
 using Geometry.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-
+using System.Net;
 
 namespace Geometry.Controllers
 {
@@ -42,7 +42,7 @@ namespace Geometry.Controllers
             if (!isValid)
             {
                 Coordinates _badInput = new Coordinates();
-                _badInput.Results = "Invalid Input";
+                _badInput.Results = HttpStatusCode.BadRequest.ToString();
                 return _badInput;
 
             }
@@ -54,7 +54,7 @@ namespace Geometry.Controllers
                 RightAngle = _services.GetCoordsRightAngle(input),
                 HorizontalPointA = _services.GetCoordsHorizontalA(input),
                 VerticalPointB = _services.GetCoordsVerticalB(input),
-                Results = "success"
+                Results = HttpStatusCode.OK.ToString()
             };
 
             return _cords;
