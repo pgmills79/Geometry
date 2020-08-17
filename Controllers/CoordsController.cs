@@ -11,16 +11,14 @@ namespace Geometry.Controllers
     [ApiController]
     public class CoordsController : ControllerBase
     {
-        private readonly IConfiguration _configuration;
+        //this is our service (dependency injection)
         private readonly IGeometryServices _services;
 
 
-        public CoordsController(IConfiguration iconfiguration, IGeometryServices services)
-        {
-
-            _configuration = iconfiguration;
+        public CoordsController(IGeometryServices services)
+        {     
+            //inject our Geometry service into this controller
             _services = services;
-
         }
 
         [HttpGet]

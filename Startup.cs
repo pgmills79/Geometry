@@ -19,10 +19,9 @@ namespace Geometry
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
-            services.AddSingleton<IConfiguration>(Configuration);
+            services.AddControllers();        
 
-            //"hook" up our calculation service
+            //"hook" up our calculation service (for dependency injection)
             services.AddSingleton<IGeometryServices, GeometryServices>();
         }
 

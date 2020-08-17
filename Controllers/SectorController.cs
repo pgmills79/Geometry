@@ -14,12 +14,12 @@ namespace Geometry.Controllers
     public class SectorController : ControllerBase
     {
 
-        private readonly IConfiguration _configuration;
+        //this is our service (dependency injection)
         private readonly IGeometryServices _services;
 
-        public SectorController(IConfiguration iconfiguration, IGeometryServices services)
+        public SectorController(IGeometryServices services)
         {
-            _configuration = iconfiguration;
+            //inject our Geometry service into this controller
             _services = services;
         }
 
