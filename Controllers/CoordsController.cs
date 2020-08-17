@@ -51,9 +51,9 @@ namespace Geometry.Controllers
             //return the coordinates cordinates...
             Coordinates _cords = new Coordinates()
             {
-                RightAngle = _services.GetCoordsRightAngle(input),
-                HorizontalPointA = _services.GetCoordsHorizontalA(input),
-                VerticalPointB = _services.GetCoordsVerticalB(input),
+                RightAngle = _services.GetCoordsRightAngle(_userInput),
+                HorizontalPointA = _services.GetCoordsHorizontalA(_userInput),
+                VerticalPointB = _services.GetCoordsVerticalB(_userInput),
                 Results = HttpStatusCode.OK.ToString()
             };
 

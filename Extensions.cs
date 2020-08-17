@@ -25,7 +25,8 @@ namespace Geometry
         public static bool isValidVertexInput(this string userVertexInput)
         {
             //regular expression pattern to make sure user 
-            //inputs this way: (0-60,0-60)(0-60,0-60)(0-60,0-60)
+            //inputs this way: (0-60,0-60)(0-60,0-60)(0-60,0-60) - and it has to happen
+            //3X for valid input
             string _pattern = @"^([[\(|\[]([0-5]?[0-9]|60)[,]([0-5]?[0-9]|60)[\)|\]]){3}$";
             string _query = userVertexInput;
 

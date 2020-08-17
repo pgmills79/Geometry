@@ -52,7 +52,7 @@ namespace Geometry.Controllers
             Sector _sector = new Sector();
 
             //Went ahead and put all the logic for the setor gathering in this service...
-            _sector.Results = _services.GetTriangleSector(input);
+            _sector.Results = _services.GetTriangleSector(_userInput);
 
             //return the sector class with only the results property visible
             return _sector;
