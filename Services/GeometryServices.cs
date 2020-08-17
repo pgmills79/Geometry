@@ -77,15 +77,10 @@ namespace Geometry.Services
         {
             Dictionary<string, int> _rightAngle = new Dictionary<string, int>();
 
-            //right angle x and ys
-            int _xCords = GetXCordinates(userInput);
-            int _yCords = GetYCordinates(userInput);
-
             _rightAngle.Add("x", GetXCordinates(userInput));
             _rightAngle.Add("y", GetYCordinates(userInput));
 
             return _rightAngle;
-
         }
 
         public Dictionary<string, int> GetCoordsHorizontalA(string userInput) 
