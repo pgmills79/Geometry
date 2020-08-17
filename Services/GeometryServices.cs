@@ -10,6 +10,8 @@ namespace Geometry.Services
     {
         //constant to calculate the 10 pixels (+/-)
         private const int PIXEL_SPACING = 10;
+        //constant for even number divide/multiply by 2
+        private const int EVEN_NUMBER_CALC = 2;
 
         private int GetXCordinates(string userInput) 
         {
@@ -18,7 +20,7 @@ namespace Geometry.Services
             //if this is divisible by 2 then its hypotenus on the bottom
             if (userInput.isEvenNumber())
             {
-                _xCord = (getNumberChosen(userInput) / 2) * PIXEL_SPACING;  //10 pixels over to get to the point
+                _xCord = (getNumberChosen(userInput) / EVEN_NUMBER_CALC) * PIXEL_SPACING;  //10 pixels over to get to the point
                 return _xCord;
             }
 
@@ -144,7 +146,8 @@ namespace Geometry.Services
 
         public Dictionary<string, List<string>> GetAllVertexes(string userInput)
         {
-
+            //regular expression pattern to get all the matches form the user input
+            //in format of (xx,xx)
             var pattern = @"\((.*?)\)";
             var query = userInput;
             List<Match> _matches = Regex.Matches(query, pattern).ToList();
@@ -213,7 +216,7 @@ namespace Geometry.Services
                         a => a.Value.Equals(Convert.ToInt16(_firstVertex[1]))
                         &
                         //since we know this is an odd number it is NOT divisble by 2
-                        Convert.ToInt16(a.Key.Substring(1, 1)) % 2 != 0  
+                        Convert.ToInt16(a.Key.Substring(1, 1)) % EVEN_NUMBER_CALC != 0  
                       )
                 .Select(a => a.Key.Substring(0, 1))
                 .FirstOrDefault<string>();
@@ -226,7 +229,7 @@ namespace Geometry.Services
                          a => a.Value.Equals(Convert.ToInt16(_firstVertex[0]))
                          &
                          //since we know this is an even number it IS divisble by 2
-                         a.Key % 2 == 0
+                         a.Key % EVEN_NUMBER_CALC == 0
                        )
                  .Select(a => a.Key)
                  .FirstOrDefault<int>();
@@ -236,7 +239,7 @@ namespace Geometry.Services
                            a => a.Value.Equals(Convert.ToInt16(_firstVertex[1]))
                            &
                            //since we know this is an even number it IS divisble by 2
-                           Convert.ToInt16(a.Key.Substring(1, 1)) % 2 == 0
+                           Convert.ToInt16(a.Key.Substring(1, 1)) % EVEN_NUMBER_CALC == 0
                          )
                    .Select(a => a.Key.Substring(0, 1))  //the row value should only be the first character
                    .FirstOrDefault<string>();
