@@ -10,7 +10,7 @@ namespace Geometry
 
         public static bool isValidXYInput(this string userXYInput ) 
         {
-
+            //regular expression pattern to make sure user inputs this way: [A-F][1-11]
             string _pattern = @"^[A-F]([1-9]|10|11)$";
             string _query = userXYInput;
            
@@ -24,7 +24,8 @@ namespace Geometry
 
         public static bool isValidVertexInput(this string userVertexInput)
         {
-
+            //regular expression pattern to make sure user 
+            //inputs this way: (0-60,0-60)(0-60,0-60)(0-60,0-60)
             string _pattern = @"^([[\(|\[]([0-5]?[0-9]|60)[,]([0-5]?[0-9]|60)[\)|\]]){3}$";
             string _query = userVertexInput;
 
