@@ -39,7 +39,7 @@ namespace Geometry
 
         public static bool isEvenNumber(this string userInput)
         {
-
+            
             int _numberChosen = Convert.ToInt16(userInput[1..]);
 
             if (_numberChosen % 2 == 0)

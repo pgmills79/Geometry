@@ -147,8 +147,8 @@ namespace Geometry.Services
         public Dictionary<string, List<string>> GetAllVertexes(string userInput)
         {
             //regular expression pattern to get all the matches form the user input
-            //in format of (xx,xx)
-            var pattern = @"\((.*?)\)";
+            //in format of (( or [ )xx,xx () or ])
+            var pattern = @"(\(|\[)(.*?)(\)|\])";  
             var query = userInput;
             List<Match> _matches = Regex.Matches(query, pattern).ToList();
 
